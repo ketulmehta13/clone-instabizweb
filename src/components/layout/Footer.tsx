@@ -8,6 +8,8 @@ const STARS: Star[] = [
   [6, 18, 18], [14, 42, 12], [23, 12, 14], [31, 30, 10], [44, 9, 16], [52, 36, 11], [63, 15, 15], [71, 40, 10], [92, 33, 12],
 ]
 
+const YEAR = new Date().getFullYear()
+
 const explore = [
   { href: '/puppies', label: 'Available puppies' },
   { href: '/gone-home', label: 'Gone home' },
@@ -96,7 +98,7 @@ export function Footer() {
       </div>
       <div className="gutter relative mx-auto mt-16 flex max-w-[110rem] flex-col items-start justify-between gap-4 border-t border-milk/15 pt-6 text-sm text-milk/60 md:flex-row md:items-center">
         <span className="flex items-center gap-3">
-          <img alt="" loading="lazy" width={36} height={36} className="size-9" src="/brand/logo.png" />© {new Date().getFullYear()} {site.name}
+          <img alt="" loading="lazy" width={36} height={36} className="size-9" src="/brand/logo.png" />© {YEAR} {site.name}
         </span>
         <span className="font-scrawl text-base text-honey/80">{site.tagline}</span>
       </div>
