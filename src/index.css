@@ -1,1 +1,362 @@
 @import "tailwindcss";
+
+/* Fonts (self-hosted from npm, all variable axes so SOFT / WONK / opsz work) */
+@import "@fontsource-variable/fraunces/full.css";
+@import "@fontsource-variable/figtree/index.css";
+@import "@fontsource-variable/shantell-sans/full.css";
+
+/* Hand-written component styles and animations (curtain, runner pup, chat, etc.) */
+@import "./styles/site.css";
+
+/* ---------- Design tokens: the TeddyPups colours, fonts and easings ---------- */
+@theme {
+  --font-sans: "Figtree Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
+  --font-hand: "Shantell Sans Variable", ui-rounded, "Comic Sans MS", cursive;
+
+  --color-toffee: #c2622b;
+  --color-toffee-deep: #a24a1a;
+  --color-toffee-ink: #8e3f15;
+  --color-honey: #f2be6b;
+  --color-honey-soft: #fbe3b4;
+  --color-cocoa: #2a170e;
+  --color-cocoa-soft: #5a3a28;
+  --color-milk: #fffdf8;
+  --color-sky: #bfddf5;
+  --color-sky-deep: #2f6e9e;
+  --color-blush: #f9cdbf;
+
+  --ease-pounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-silk: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-snap: cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+/* ---------- Page-wide defaults ---------- */
+@layer base {
+  :root {
+    color-scheme: light;
+    --gutter: clamp(1rem, 4vw, 3.5rem);
+    --header-h: 4.75rem;
+    --bar-h: 0px;
+    accent-color: var(--color-toffee-deep);
+  }
+  html {
+    scrollbar-gutter: stable;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+    overflow-x: clip;
+  }
+  body {
+    background: var(--color-milk);
+    color: var(--color-cocoa);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-honey);
+    color: var(--color-cocoa);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-toffee-deep);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  @media (max-width: 767px) {
+    :root {
+      --header-h: 4rem;
+      --bar-h: calc(4rem + env(safe-area-inset-bottom));
+    }
+  }
+}
+
+/* ---------- Reusable pieces: buttons, chips, cards, frames ---------- */
+@layer components {
+  .btn {
+    min-height: 3.25rem;
+    transition:
+      transform 0.35s var(--ease-pounce),
+      background-color 0.25s ease,
+      box-shadow 0.35s var(--ease-silk);
+    border-radius: 999px;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.6rem;
+    font-size: 1.0625rem;
+    font-weight: 650;
+    line-height: 1.1;
+    text-decoration: none;
+    display: inline-flex;
+  }
+  .btn:active {
+    transform: scale(0.96);
+  }
+  .btn-primary {
+    background: var(--color-toffee-deep);
+    color: var(--color-milk);
+    box-shadow: 0 0.5rem 0 -0.15rem var(--color-cocoa);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 0.7rem 0 -0.15rem var(--color-cocoa);
+    transform: translateY(-2px) rotate(-1deg);
+  }
+  .btn-ghost {
+    color: var(--color-cocoa);
+    border: 2px solid var(--color-cocoa);
+    background: none;
+  }
+  .btn-ghost:hover {
+    background: var(--color-cocoa);
+    color: var(--color-milk);
+  }
+  .btn-whatsapp {
+    color: #fff;
+    box-shadow: 0 0.5rem 0 -0.15rem var(--color-cocoa);
+    background: #1f7a4d;
+  }
+  .btn-whatsapp:hover {
+    transform: translateY(-2px) rotate(1deg);
+  }
+  .link-ink {
+    color: var(--color-toffee-ink);
+    text-underline-offset: 0.2em;
+    text-decoration: underline color-mix(in oklab, var(--color-toffee) 55%, transparent);
+    text-decoration-thickness: 2px;
+  }
+  .link-ink:hover {
+    text-decoration-color: currentColor;
+  }
+  .chip {
+    background: var(--color-honey-soft);
+    border-radius: 999px;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: inline-flex;
+  }
+  .ink {
+    stroke: var(--color-cocoa);
+    stroke-width: 3px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+  }
+  .sr-only-focusable:not(:focus) {
+    clip-path: inset(50%);
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    overflow: hidden;
+  }
+  .tp-board {
+    border: 3px solid var(--color-cocoa);
+    background: var(--color-milk);
+    color: var(--color-cocoa);
+    border-radius: 1.6rem;
+    padding: clamp(1.1rem, 2.6vw, 1.75rem);
+    position: relative;
+    box-shadow: 6px 8px #2a170e24;
+  }
+  .tp-board::before {
+    content: "";
+    pointer-events: none;
+    border: 1.5px dashed #2a170e38;
+    border-radius: 1.2rem;
+    position: absolute;
+    inset: 7px;
+  }
+  .tp-page-head {
+    align-items: end;
+    gap: 1.5rem 2.5rem;
+    display: grid;
+  }
+  .tp-page-head__teddy {
+    justify-self: end;
+    width: clamp(8.5rem, 30vw, 11rem);
+    margin-bottom: -0.4rem;
+  }
+  @media (min-width: 768px) {
+    .tp-page-head {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+    .tp-page-head__teddy {
+      width: clamp(10rem, 15vw, 14rem);
+    }
+  }
+  .tp-paper {
+    border: 3px solid var(--color-cocoa);
+    color: var(--color-cocoa);
+    background:
+      radial-gradient(circle at 0 0, #0000 0 17px, #c2622b14 17px 18.5px, #0000 18.5px) 0 0 / 36px 36px,
+      radial-gradient(circle at 18px 18px, #0000 0 17px, #c2622b0f 17px 18.5px, #0000 18.5px) 0 0 / 36px 36px,
+      #fff8ea;
+    border-radius: 1.4rem;
+    padding: clamp(1.4rem, 3vw, 2.25rem);
+    position: relative;
+  }
+  .tp-trail {
+    gap: 2rem;
+    display: grid;
+  }
+  .tp-trail > li {
+    padding-left: 4.5rem;
+    position: relative;
+  }
+  .tp-trail > li:not(:last-child)::before {
+    content: "";
+    border-left: 3px dotted color-mix(in oklab, currentColor 40%, transparent);
+    position: absolute;
+    top: 3.9rem;
+    bottom: -1.6rem;
+    left: 1.6rem;
+  }
+  @media (min-width: 1024px) {
+    .tp-trail--row {
+      grid-auto-columns: minmax(0, 1fr);
+      grid-auto-flow: column;
+      gap: 2.5rem;
+    }
+    .tp-trail--row > li {
+      padding-top: 4.6rem;
+      padding-left: 0;
+    }
+    .tp-trail--row > li:not(:last-child)::before {
+      border-top: 3px dotted color-mix(in oklab, currentColor 40%, transparent);
+      border-left: 0;
+      inset: 1.6rem -2.1rem auto 4.1rem;
+    }
+  }
+  .tp-trail__num {
+    border: 3px solid var(--color-cocoa);
+    background: var(--color-milk);
+    width: 3.4rem;
+    height: 3.4rem;
+    color: var(--color-cocoa);
+    border-radius: 50%;
+    place-items: center;
+    font-size: 1.75rem;
+    display: grid;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .tp-letter {
+    border: 3px solid var(--color-cocoa);
+    background: var(--color-milk);
+    color: var(--color-cocoa);
+    border-radius: 1.6rem;
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+    position: relative;
+    box-shadow: 8px 10px #2a170e29;
+  }
+  .tp-letter__stamp {
+    aspect-ratio: 1;
+    border: 3px dashed var(--color-toffee-deep);
+    background: var(--color-honey-soft);
+    width: 4.75rem;
+    color: var(--color-toffee-deep);
+    border-radius: 0.5rem;
+    place-items: center;
+    display: grid;
+    position: absolute;
+    top: -1.25rem;
+    right: 2rem;
+    rotate: 6deg;
+  }
+  .tp-ways {
+    gap: 2rem;
+    display: grid;
+  }
+  .tp-ways__teddy {
+    justify-self: center;
+    width: clamp(8.5rem, 32vw, 10.5rem);
+  }
+  @media (min-width: 1024px) {
+    .tp-ways {
+      grid-template-columns: minmax(0, 1fr) clamp(8rem, 10vw, 10.5rem) minmax(0, 1fr);
+      column-gap: 1.25rem;
+    }
+    .tp-ways__teddy {
+      align-self: end;
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  }
+  .tp-shopfront {
+    border: 3px solid var(--color-cocoa);
+    color: var(--color-cocoa);
+    background: linear-gradient(#fff1d8, #fbe3b4);
+    border-radius: 1.2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .tp-shopfront::before {
+    content: "";
+    border-bottom: 3px solid var(--color-cocoa);
+    background: repeating-linear-gradient(90deg, var(--color-toffee) 0 1.4rem, var(--color-milk) 1.4rem 2.8rem);
+    height: 1.9rem;
+    display: block;
+  }
+  .tp-arch {
+    border: 3px solid var(--color-cocoa);
+    background: var(--color-honey-soft);
+    border-radius: 999px 999px 1.6rem 1.6rem;
+    overflow: hidden;
+  }
+  .pup-buddy {
+    pointer-events: none;
+    position: relative;
+  }
+}
+
+/* ---------- Custom utilities (used like Tailwind classes) ---------- */
+@utility measure {
+  max-width: 62ch;
+}
+@utility gutter {
+  padding-inline: var(--gutter);
+}
+/* Big soft "plush" headings */
+@utility font-plush {
+  text-wrap: balance;
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 144;
+  letter-spacing: -0.025em;
+  font-weight: 800;
+  line-height: 0.92;
+}
+@utility font-plush-text {
+  font-family: var(--font-display);
+  font-variation-settings: "SOFT" 100, "WONK" 0, "opsz" 36;
+}
+/* Handwritten notes */
+@utility font-scrawl {
+  font-family: var(--font-hand);
+  font-variation-settings: "INFM" 60, "BNCE" 30;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+/* Fluid type sizes that grow with the screen */
+@utility text-lede {
+  font-size: clamp(1.125rem, 1.4vw, 1.375rem);
+  line-height: 1.5;
+}
+@utility text-big {
+  font-size: clamp(2rem, 4.2vw, 4rem);
+}
+@utility text-huge {
+  font-size: clamp(2.6rem, 6.4vw, 6.25rem);
+}
+@utility text-giant {
+  font-size: clamp(3.1rem, 9.4vw, 9.75rem);
+}
