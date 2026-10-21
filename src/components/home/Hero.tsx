@@ -54,7 +54,7 @@ export function Hero() {
       </div>
       <div className="tp-hero__stage">
         <HeroLineup friends={friends} />
-        <PupStop pose="peek" act="peekaboo" behind lane className="tp-hero__teddy" />
+        <PupStop pose="peek" act="peekaboo" behind lane className="tp-hero__teddy" label="Teddy, the TeddyPups puppy, peeking over the quilt" />
         <Quilt />
       </div>
     </Scene>

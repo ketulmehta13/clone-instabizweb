@@ -1397,7 +1397,7 @@ export const gonePuppies: Puppy[] = [
     "age": "3 months",
     "description": "",
     "status": "rehomed",
-    "origin": "imported",
+    "origin": "local",
     "breeds": [],
     "collections": [],
     "cover": {
@@ -1657,7 +1657,7 @@ export const gonePuppies: Puppy[] = [
     "age": "3 months",
     "description": "",
     "status": "rehomed",
-    "origin": "imported",
+    "origin": "local",
     "breeds": [],
     "collections": [],
     "cover": {
@@ -1734,7 +1734,7 @@ export const gonePuppies: Puppy[] = [
     "age": "2 months",
     "description": "",
     "status": "rehomed",
-    "origin": "imported",
+    "origin": "local",
     "breeds": [],
     "collections": [],
     "cover": {
@@ -1816,7 +1816,7 @@ export const gonePuppies: Puppy[] = [
     "age": "2 months",
     "description": "",
     "status": "rehomed",
-    "origin": "imported",
+    "origin": "local",
     "breeds": [],
     "collections": [],
     "cover": {
@@ -1939,7 +1939,7 @@ export const gonePuppies: Puppy[] = [
     "age": "3 months",
     "description": "",
     "status": "rehomed",
-    "origin": "imported",
+    "origin": "local",
     "breeds": [],
     "collections": [],
     "cover": {
@@ -2045,7 +2045,7 @@ export const gonePuppies: Puppy[] = [
     "age": "3 months",
     "description": "",
     "status": "rehomed",
-    "origin": "imported",
+    "origin": "local",
     "breeds": [],
     "collections": [],
     "cover": {
@@ -2122,7 +2122,7 @@ export const gonePuppies: Puppy[] = [
     "age": "3 months",
     "description": "",
     "status": "rehomed",
-    "origin": "imported",
+    "origin": "local",
     "breeds": [],
     "collections": [],
     "cover": {
@@ -2341,7 +2341,7 @@ export const gonePuppies: Puppy[] = [
     "age": "3 months",
     "description": "",
     "status": "rehomed",
-    "origin": "imported",
+    "origin": "local",
     "breeds": [],
     "collections": [],
     "cover": {
@@ -2406,7 +2406,7 @@ export const gonePuppies: Puppy[] = [
     "age": "3 months",
     "description": "",
     "status": "rehomed",
-    "origin": "imported",
+    "origin": "local",
     "breeds": [],
     "collections": [],
     "cover": {
@@ -2678,7 +2678,7 @@ export const gonePuppies: Puppy[] = [
     "age": "3 months",
     "description": "",
     "status": "rehomed",
-    "origin": "imported",
+    "origin": "local",
     "breeds": [],
     "collections": [],
     "cover": {
@@ -2779,7 +2779,7 @@ export const gonePuppies: Puppy[] = [
     "age": "3 months",
     "description": "",
     "status": "rehomed",
-    "origin": "imported",
+    "origin": "local",
     "breeds": [],
     "collections": [],
     "cover": {
@@ -2885,7 +2885,7 @@ export const gonePuppies: Puppy[] = [
     "age": "3 months",
     "description": "",
     "status": "rehomed",
-    "origin": "imported",
+    "origin": "local",
     "breeds": [],
     "collections": [],
     "cover": {
