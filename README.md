@@ -1,32 +1,50 @@
-# React + TypeScript + Vite
+# TeddyPups Clone (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Clone of https://puppy.instabizweb.com/ built with React 19, Vite, TypeScript, React Router 7,
+Tailwind CSS v4 and Motion. Plan: PLAN.md · Prompt log: PROMPTS.md
 
-Currently, two official plugins are available:
+## Run it
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev        # http://localhost:5173
+npm run build      # type-check + production build
+npx oxlint src     # lint
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Progress (PLAN.md phases)
+
+- [x] 1–2 Study site, choose tools
+- [x] 3 Project set up (Vite React TS, Tailwind v4, React Router, fonts)
+- [x] 4 Git initialised, commits per phase (GitHub remote NOT added/pushed yet)
+- [x] 5 Colours, fonts, base/component CSS (src/index.css, src/styles/site.css)
+- [x] 6 Routes, header (scroll hide/show), mobile menu, footer, WhatsApp bar, 404 "Lost" poster
+- [x] 7 Content in src/data (15 available + 27 rehomed puppies, 64 family photos, 9 FAQs, journeys); media in public/media
+- [x] 8 Building blocks: Img, RevealScope, Polaroid, photo viewer, PuppyCard (sketch), Chapter, Scene, Twinkles, Teddy (PupDrawing/PupRig/PupBuddy/PupStop)
+- [x] 9 Home page (hero lineup, meet the pups pinned scroll, two ways + flight, journey chat, passport, families wall, questions, CTA)
+- [x] 10 Puppies list with URL filters + puppy story page (gallery, enquiry → WhatsApp, prev/next)
+- [x] 11 Happy families, How it works, FAQ notice board, Visit & contact letter form, Gone home tickets
+- [x] 12 Walking Teddy across home page (PupJourney), page-change curtain (RouteCurtain), paw-trail cursor canvas, Lenis smooth scroll, back/forward scroll restore
+- [ ] 13 Testing at 360/390/768/1024/1440, keyboard/a11y, Lighthouse, lint+build clean
+- [ ] 14 vercel.json SPA rewrite, push to GitHub, deploy on Vercel
+- [ ] 15 Final README, PROMPTS.md updated with every prompt
+
+## Folder structure
+
+```
+src/pages        one file per page
+src/components   layout/, home/, puppy/, how/, faq/, contact/, pup/ (Teddy engine), shared blocks
+src/data         content (puppies.ts, home.ts, families.ts, faqs.ts, journeys.ts, site.ts, types.ts)
+src/lib          motion helpers, page meta, enquiry → WhatsApp
+public/media     photos/videos named <id>.<ext>
+```
+
+## Notes / decisions
+
+- React + Vite instead of Next.js; vercel.json rewrite needed for deep links.
+- Original CSS class names reused, so its stylesheet drives the look.
+- Enquiry forms open WhatsApp with the message prefilled (no backend).
+- Photos resized to ≤1600px to keep the repo small.
+- Walking Teddy: stops are `<PupStop>` elements on the page; `pup/journey.ts` works out the route, `pup/PupJourney.tsx` animates it. On phones he peeks up from above the WhatsApp bar instead.
+- Movement (walker, curtain, paw trail, smooth scroll) is off when the device asks for reduced motion.
+- Reference tooling lives outside the repo in C:\dev\ref (screenshots: `node shot.mjs <url> <out.png> 1440 900 1`; walker check: `node pupcheck.mjs <url> <outDir> 1440 900`; curtain check: `node curtaincheck.mjs`; compare.py).
